@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        ImageView AddMeeting = findViewById(R.id.button_add);
         MyDbHandler db = new MyDbHandler(MainActivity.this);
 
 //        Contact anmol = new Contact();
@@ -66,6 +67,14 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, contacts);
         listView.setAdapter(arrayAdapter);
+
+        AddMeeting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ScheduleMeetingActivity.class);
+                startActivity(intent);
+            }
+        });
 
         listView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
             @Override
