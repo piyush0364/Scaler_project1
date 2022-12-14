@@ -2,10 +2,14 @@ package com.example.scalardb;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.scalardb.data.MyDbHandler;
 import com.example.scalardb.model.Contact;
@@ -54,6 +58,13 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, contacts);
         listView.setAdapter(arrayAdapter);
 
+        listView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+                String item = (String) listView.getItemAtPosition(position);
+                Toast.makeText(MainActivity.this, item, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         Log.d("Number of Entries: ", ""+db.getCount());
     }
