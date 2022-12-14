@@ -4,23 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.scalardb.data.MyDbHandler;
+import com.example.scalardb.model.Contact;
+
 import java.util.Calendar;
-import java.util.UUID;
 
 public class ScheduleMeetingActivity extends AppCompatActivity {
     Button SetDate;
@@ -60,7 +57,7 @@ public class ScheduleMeetingActivity extends AppCompatActivity {
                                                   int minute) {
                                 SetDate.setVisibility(View.GONE);
                                 SelectedDate.setVisibility(View.VISIBLE);
-                                SelectedDate.setText("Start Time: " + hourOfDay + ":" + minute);
+                                SelectedDate.setText("" + hourOfDay + ":" + minute);
                             }
                         }, mHour, mMinute, true);
                 picker.show();
@@ -99,12 +96,11 @@ public class ScheduleMeetingActivity extends AppCompatActivity {
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
                                 SetTime.setVisibility(View.GONE);
-                                SelectTime.setText("EndTime: " + hourOfDay + ":" + minute);
+                                SelectTime.setText("" + hourOfDay + ":" + minute);
                                 SelectTime.setVisibility(View.VISIBLE);
                             }
                         }, mHour, mMinute, true);
                 timePickerDialog.show();
-
             }
         });
 
@@ -118,7 +114,15 @@ public class ScheduleMeetingActivity extends AppCompatActivity {
                 } else if (Title.getText().toString().equals(null) || Title.getText().toString().equals("")) {
                     Title.setError("Add Title");
                 } else {
-                    String s = "";
+                    MyDbHandler db = new MyDbHandler(ScheduleMeetingActivity.this);
+                    Contact aqsa = new Contact();
+                    aqsa.setName(Title.getText().toString());
+                    aqsa.setStart_time(SelectedDate.getText().toString());
+                    aqsa.setEnd_time(SelectTime.getText().toString());
+
+                    db.addContact(aqsa);
+                    Intent intent = new Intent(ScheduleMeetingActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
             }
         });
