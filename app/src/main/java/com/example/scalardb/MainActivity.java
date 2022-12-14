@@ -2,6 +2,8 @@ package com.example.scalardb;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,6 +42,13 @@ public class MainActivity extends AppCompatActivity {
 //        aviral.setEnd_time("6:00");
 //
 //        db.addContact(aviral);
+//
+//        Contact aqsa = new Contact();
+//        aqsa.setName("Aqsa");
+//        aqsa.setStart_time("6:00");
+//        aqsa.setEnd_time("8:00");
+//
+//        db.addContact(aqsa);
 
 
         ArrayList<String> contacts = new ArrayList<>();
@@ -62,7 +71,36 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
                 String item = (String) listView.getItemAtPosition(position);
-                Toast.makeText(MainActivity.this, item, Toast.LENGTH_SHORT).show();
+                String s = "" + item.charAt(0);
+                int a = Character.getNumericValue(item.charAt(0));
+
+                Toast.makeText(MainActivity.this, s, Toast.LENGTH_SHORT).show();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setMessage("Do you want to delete?")
+                        .setTitle("Delete Meeting");
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        db.deleteContactById(a);
+                        contacts.clear();
+                        arrayAdapter.notifyDataSetChanged();
+                        List<Contact> allContacts = db.getAllContacts();
+                        for (Contact contact: allContacts){
+                            contacts.add(contact.getId() + "\n" + contact.getName() + "\n" + "Start Time: " + contact.getStart_time() + "\n" + "End Time: " + contact.getEnd_time());
+                        }
+//                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, contacts);
+                        listView.setAdapter(arrayAdapter);
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 
