@@ -29,26 +29,26 @@ public class MainActivity extends AppCompatActivity {
         ImageView AddMeeting = findViewById(R.id.button_add);
         MyDbHandler db = new MyDbHandler(MainActivity.this);
 
-//        Contact anmol = new Contact();
-//        anmol.setName("anmol");
-//        anmol.setStart_time("1:00");
-//        anmol.setEnd_time("4:00");
+//        Contact piyush = new Contact();
+//        piyush.setName("anmol");
+//        piyush.setStart_time("6:00");
+//        piyush.setEnd_time("7:00");
 //
-//        db.addContact(anmol);
+//        db.addContact(piyush);
 //
-//        Contact aviral = new Contact();
-//        aviral.setName("Aviral");
-//        aviral.setStart_time("4:00");
-//        aviral.setEnd_time("6:00");
+//        Contact manish = new Contact();
+//        manish.setName("Manish");
+//        manish.setStart_time("4:00");
+//        manish.setEnd_time("6:00");
 //
 //        db.addContact(aviral);
 //
-//        Contact aqsa = new Contact();
-//        aqsa.setName("Aqsa");
-//        aqsa.setStart_time("6:00");
-//        aqsa.setEnd_time("8:00");
+//        Contact aditya = new Contact();
+//        aditya.setName("Aditya");
+//        aditya.setStart_time("6:00");
+//        aditya.setEnd_time("8:00");
 //
-//        db.addContact(aqsa);
+//        db.addContact(aditya);
 
 
         ArrayList<String> contacts = new ArrayList<>();
